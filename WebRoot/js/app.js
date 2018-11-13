@@ -41,7 +41,7 @@ app.config(function($stateProvider,$urlRouterProvider) {
      })
      .state('main.exams', {
         url: '/exams',
-        templateUrl: 'view/exams.html',
+        templateUrl: 'view/exam/exams.html',
         controller:'examCtrl'
      })
 	;
