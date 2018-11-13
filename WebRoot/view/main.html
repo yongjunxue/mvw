@@ -1,0 +1,56 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid"> 
+	    <div class="navbar-header">
+	        <button type="button" class="navbar-toggle" data-toggle="collapse"
+	                data-target="#example-navbar-collapse">
+	            <span class="sr-only">切换导航</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	        </button>
+	        <a class="navbar-brand" href="#">医学考试系统</a>
+	    </div>
+	    
+	    <div class="collapse navbar-collapse navbar-right" id="example-navbar-collapse">
+	        <ul class="nav navbar-nav">
+	        	<li ><a href="">您好，xxx</a></li>
+	            <li><a href="">更改密码</a></li>
+	            <li><a ng-click="logout()">退出</a></li>
+	        </ul>
+	    </div>
+    </div>
+</nav>
+
+<div class="container-fluid myMain">
+	<div class="row">
+		<div class="col-sm-3 col-md-2 sidebar">
+			<ul class="nav nav-sidebar">
+	            <li ><a href="">考试管理<span class="sr-only">(current)</span></a></li>
+	            <li><a href="">考试列表</a></li>
+	          </ul>
+	          <ul class="nav nav-sidebar">
+	            <li><a ui-sref=".users">用户列表</a></li>
+	          </ul>
+	          <ul class="nav nav-sidebar">
+	            <li><a >系统管理</a></li>
+	            <li><a ui-sref=".tissues">组织管理</a></li>
+	          </ul>
+	          <ul class="nav nav-sidebar">
+	            <li class="active"><a ui-sref=".table">表格</a></li>
+	          </ul>
+	          <ul class="nav nav-sidebar">
+		          <div class="input-group">
+					<input type="text" class="form-control">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button">
+							Go!
+						</button>
+					</span>
+				</div>
+			 </ul>
+		</div>
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+			<div ui-view></div>
+		</div>
+	</div>	
+</div>
