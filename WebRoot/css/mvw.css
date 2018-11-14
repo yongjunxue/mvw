@@ -15,6 +15,13 @@
 .myNav{
 	margin-bottom:100px;
 }
+
+
+
+
+
+
+
 /*.myMain{
 	margin-top:50px;
 }*/
@@ -60,4 +67,5 @@ body {
 .myStriped > tbody > tr:nth-of-type(odd) {
   background-color: #cccfff;
 }
-</style>
+
+

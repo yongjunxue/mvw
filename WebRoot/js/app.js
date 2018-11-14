@@ -3,9 +3,10 @@
 //定义主模块并注入依赖
 var app=angular.module("mvw", ["ui.router"]);
 //路由配置
-app.config(function($stateProvider,$urlRouterProvider) {
+app.config(function($stateProvider,$urlRouterProvider,$httpProvider) {
 	
-	
+	$httpProvider.defaults.headers.post['Content-Type'] = 'text/plain';
+    $httpProvider.defaults.headers.put['Content-Type'] = 'text/plain';
 	
 	$urlRouterProvider.otherwise('login');
 	$stateProvider

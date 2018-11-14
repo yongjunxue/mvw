@@ -1,1 +1,53 @@
-<h1>考试列表</h1>
+<h2 class="sub-header">考试列表</h2>
+<div class="table-responsive">
+	<table class="table table-striped table-hover table-bordered">
+	  <thead>
+		<tr>
+		  <th>#</th>
+		  <th>试卷名称</th>
+		  <th>题数</th>
+		  <th>总分</th>
+		  <th>考试用时</th>
+		  <th>试卷难度</th>
+		  <th>试卷说明</th>
+		  <th>操作</th>
+		</tr>
+	  </thead>
+	  <tbody>
+	  	<tr ng-repeat="exam in serviceResult.paperList">
+	  		<td>{{exam.index}}</td>
+			<td>{{exam.examName}}</td>
+			<td>{{exam.totalQuestion}}</td>
+			<td>{{exam.totalScore}}</td>
+			<td>{{exam.timeLimit}}</td>
+			<td>{{exam.examDifficulty}}</td>
+			<td>{{exam.illustration}}</td>
+			<td>
+				<a ui-sref="">编辑</a>
+				<a ui-sref="">删除</a>
+			</td>
+		</tr>
+	  </tbody>
+	</table>
+</div>
+
+<div class="navbar-fixed-bottom col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" role="navigation">
+	<div class="text-center">
+		共{{page.total}}条记录	{{page.pages}}页	
+		当前第{{page.page}}页
+		<div class="btn-group">
+		    <button type="button" class="btn btn-default" ng-click="getFirstPage(page)">&lt&lt</button>
+		    <button type="button" class="btn btn-default" ng-click="prePage(page)">&lt</button>
+		    <button type="button" class="btn btn-default" ng-click="nextPage(page)">&gt</button>
+		    <button type="button" class="btn btn-default" ng-click="getLastPage(page)">&gt&gt</button>
+		    <div class="input-group" style="width:100px;">
+				<input type="text" class="form-control" ng-model="pageNum" ng-change="formatNum()" >
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" ng-click="goPage()" ng-disabled="!pageNum">
+						Go
+					</button>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

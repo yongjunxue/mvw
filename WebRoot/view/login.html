@@ -4,9 +4,9 @@
 		 <div>
 		    <h2 class="text-center">Please sign in</h2>
 		    <div class="form-group">
-			    <label for="inputEmail" class="sr-only">Email address</label>
+			    <label for="inputEmail" class="sr-only">账号</label>
 			    <div class="form-group">
-				    <input ng-model="user.name" type="email" class="form-control" placeholder="邮箱" required autofocus>
+				    <input ng-model="user.name" type="text" class="form-control" placeholder="账号" required autofocus>
 			    </div>
 		    </div>
 		</div>
@@ -19,7 +19,7 @@
 		    </div>
 		</div>
 	  <div class="">
-	    <button class="btn btn-primary btn-block" ng-click="login()">登录</button>
+	    <button class="btn btn-primary btn-block" ng-click="login()" ng-disabled="!user.name || !user.pwd">登录</button>
 	   </div>
 	  </form>
 </div>
