@@ -175,7 +175,6 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
     }
 	$scope.getExams6();
 	
-	
 	$scope.getFirstPage=function(page){
 		$scope.serviceResult={};
 		$scope.page.page=1;
@@ -217,5 +216,19 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 			$scope.pageNum="";
 			return true;
 		}
+	};
+	
+	$scope.edit=function (exam){
+		$scope.exam=angular.copy(exam);
+	};
+	$scope.saveExam=function (){
+		console.log($scope.exam);
+//		$("#editModal").attr("class","modal fade");
+//		$(".body").removeClass("modal-open");
+		console.log("保存成功");
+		$scope.getExams6();//刷新列表
+	};
+	$scope.close=function (){
+		console.log("取消");
 	};
 }]);

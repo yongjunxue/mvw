@@ -8,5 +8,5 @@ angular.module('mvw').controller('loginCtrl',['$scope','$state',function($scope,
 		console.log($scope.user);
 		console.log("登录成功");
 		$state.go('main.table');
-	}
-}])
+	};
+}]);

@@ -16,6 +16,20 @@
 	margin-bottom:100px;
 }
 
+.myModalBody{
+	margin-top:5px;
+}
+.myModalBody textarea{
+	min-width: 400px;
+	max-width: 400px;
+}
+.myModalBody label{
+	vertical-align: top;
+	max-width: 150px;
+}
+.myModalHead{
+	background-color: #999;
+}
 
 
 

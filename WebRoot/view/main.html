@@ -14,6 +14,7 @@
 	    <div class="collapse navbar-collapse navbar-right" id="example-navbar-collapse">
 	        <ul class="nav navbar-nav">
 	        	<li ><a href="">您好，xxx</a></li>
+	        	<li ><a href="">消息 <span class="badge">13</span></a></li>
 	            <li><a href="">更改密码</a></li>
 	            <li><a ng-click="logout()">退出</a></li>
 	        </ul>
@@ -24,20 +25,28 @@
 <div class="container-fluid myMain">
 	<div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
-			<ul class="nav nav-sidebar">
-	            <li ><a href="">考试管理<span class="sr-only">(current)</span></a></li>
-	            <li><a ui-sref=".exams">考试列表</a></li>
-	          </ul>
-	          <ul class="nav nav-sidebar">
-	            <li><a ui-sref=".users">用户列表</a></li>
-	          </ul>
-	          <ul class="nav nav-sidebar">
-	            <li><a >系统管理</a></li>
-	            <li><a ui-sref=".tissues">组织管理</a></li>
-	          </ul>
-	          <ul class="nav nav-sidebar">
-	            <li class="active"><a ui-sref=".table">表格</a></li>
-	          </ul>
+				<!--menu.json-->
+				<ul class="nav nav-sidebar" ng-repeat="menu in memuList">
+					<li id='{{menu.id}}'><a ng-click="toMenu(menu)" >{{menu.name}}</a></li>
+				</ul>
+				
+				<!--menu2.json-->
+				<ul class="nav nav-sidebar sidebar-offcanvas" ng-repeat="menu in memu2List">
+					<li id='{{menu.id}}'><a ng-click="toMenu2(menu)" >{{menu.name}}</a></li>
+					<div ng-repeat="son in menu.sonMenus">
+						<li id='{{son.id}}'><a ng-click="toMenu2(son)" >{{son.name}}</a></li>
+					</div>
+				</ul>
+				
+				
+				<ul class="nav nav-sidebar">
+		            <li ><a href="">考试管理<span class="sr-only">(current)</span></a></li>
+		            <li><a ui-sref=".exams">考试列表</a></li>
+		            <li><a ui-sref=".users">用户列表</a></li>
+		            <li><a >系统管理</a></li>
+		            <li><a ui-sref=".tissues">组织管理</a></li>
+		            <li><a ui-sref=".table">表格</a></li>
+		          </ul>
 		</div>
 		<div ui-view class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2"></div>
 	</div>	
