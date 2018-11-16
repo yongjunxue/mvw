@@ -1,9 +1,9 @@
-angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter','$q','comService',function($scope,$state,$http,$filter,$q,comService){
+angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter','$q','MVWHOST','comService',function($scope,$state,$http,$filter,$q,MVWHOST,comService){
 	$scope.page={
 		total:0,//总记录数
 		page:1,//当前页
 		pageSize:5,//每页记录数
-		pages:0//总页数
+		pages:0,//总页数
 	};
 	var args={
 		tissueId:"4028881a57f9f1ac0157f9fb8eb80005",
@@ -155,7 +155,7 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 		param.data.args.page=$scope.page.page;
 		param.data.args.maxNum=$scope.page.pageSize;
 		
-		var r1=comService.mvwPost("http://192.168.8.109:4075/services2",param.data);
+		var r1=comService.mvwPost(MVWHOST,param.data);
 //		var r1=comService.mvwPost3("http://192.168.8.109:4075/services2",param.data,$scope);
 //		$scope.$apply();//强制刷新。使用ajax请求的时候，如果没有这一步，那么第一次进入这个页面，列表不会刷新
     	if(r1.opFlag == 'true'){
@@ -174,36 +174,31 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
     	}
     }
 	$scope.getExams6();
-	
-	$scope.getFirstPage=function(page){
-		$scope.serviceResult={};
+
+//------------分页部分用分页指令代替--------------------------
+/*	$scope.getFirstPage=function(){
 		$scope.page.page=1;
 		$scope.getExams6();
 	};
-	$scope.prePage=function(page){
-		$scope.serviceResult={};
+	$scope.prePage=function(){
 		$scope.page.page=$scope.page.page-1;
 		if($scope.page.page<1){
 			$scope.page.page=1;
 		}
 		$scope.getExams6();
 	};
-	$scope.nextPage=function(page){
-		$scope.serviceResult={};
+	$scope.nextPage=function(){
 		$scope.page.page=$scope.page.page+1;
 		if($scope.page.page>$scope.page.pages){
 			$scope.page.page=$scope.page.pages;
 		}
 		$scope.getExams6();
 	};
-	$scope.getLastPage=function(page){
-		$scope.serviceResult={};
-		var page=Math.ceil(page.total/page.pageSize);
-		$scope.page.page=page;
+	$scope.getLastPage=function(){
+		$scope.page.page=Math.ceil($scope.page.total/$scope.page.pageSize);
 		$scope.getExams6();
 	};
 	$scope.goPage=function(){
-		$scope.serviceResult={};
 		$scope.page.page=$scope.pageNum;
 		$scope.getExams6();
 	};
@@ -216,19 +211,23 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 			$scope.pageNum="";
 			return true;
 		}
-	};
+	};*/
 	
 	$scope.edit=function (exam){
 		$scope.exam=angular.copy(exam);
 	};
 	$scope.saveExam=function (){
 		console.log($scope.exam);
-//		$("#editModal").attr("class","modal fade");
-//		$(".body").removeClass("modal-open");
 		console.log("保存成功");
 		$scope.getExams6();//刷新列表
 	};
 	$scope.close=function (){
 		console.log("取消");
 	};
+	
+	//监控$scope.page，如果有变化则执行$scope.getExams6()
+	$scope.$watch('page', $scope.getExams6,true);//方式一。true表示深度监控，监控page的每个属性
+//	$scope.$watch('page', function(){//方式二
+//		$scope.getExams6();
+//	},true);
 }]);

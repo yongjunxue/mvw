@@ -46,4 +46,5 @@ app.config(function($stateProvider,$urlRouterProvider,$httpProvider) {
         controller:'examCtrl'
      })
 	;
-});
+})
+.constant("MVWHOST","http://192.168.8.109:4075/services2");
