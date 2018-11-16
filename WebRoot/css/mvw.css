@@ -31,8 +31,36 @@
 	background-color: #999;
 }
 
+#myGridStyle{
+	min-height:100%;
+	height:100%;
+	margin-bottom:0 auto -60px;
+	height: auto !important; 
+}
 
+.myPageStyle{
+	text-align: center;
+	margin-top:-60px;
+	
+}
 
+.myMainWapers{
+	margin-bottom:50px;
+}
+.myQuery{
+	margin-bottom:20px;
+}
+.myBlock{
+	min-width:400px;
+	box-sizing: border-box;
+}
+input[type="text"], input[type="number"],select{
+	width:160px;
+	height:25px;
+}
+/*.myQuery >div >label{
+	vertical-align:middle;
+}*/
 
 
 

@@ -1,10 +1,12 @@
 angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter','$q','MVWHOST','comService',function($scope,$state,$http,$filter,$q,MVWHOST,comService){
+//----------------分页-----------------------------------
 	$scope.page={
 		total:0,//总记录数
 		page:1,//当前页
-		pageSize:5,//每页记录数
+		pageSize:15,//每页记录数
 		pages:0,//总页数
 	};
+//----------------参数-----------------------------------
 	var args={
 		tissueId:"4028881a57f9f1ac0157f9fb8eb80005",
 		page:$scope.page.page,
@@ -19,6 +21,30 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 	}
 	var param={
 		data:data
+	};
+//----------------表头-----------------------------------
+	$scope.theads=[
+	     {code:"index",name:"#"}, 
+	     {code:"examName",name:"试卷名称"},
+	     {code:"totalQuestion",name:"题数"},
+	     {code:"totalScore",name:"总分"},
+	     {code:"timeLimit",name:"考试用时"},
+	     {code:"examDifficulty",name:"试卷难度"},
+	     {code:"illustration",name:"试卷说明"},
+	     {code:"illustration",name:"操作",action:[{name:"编辑",model:"exam",id:""},{name:"删除"}]}
+	];
+//----------------列表-----------------------------------	
+	$scope.dataList=[];
+//----------------查询-----------------------------------
+	$scope.query={
+			examName:'',
+			examTypes:[
+			           {code:"",name:"请选择"},
+			           {code:"0100",name:"内科"},
+			           {code:"0200",name:"儿科"},
+			           ],
+			createTime:"",
+//			examTypeSelected:"1"
 	};
 	
 	$scope.model=param; //用$scope将param绑定之后，修改param中的值，普通刷新即可生效。否则必须强刷
@@ -160,15 +186,15 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 //		$scope.$apply();//强制刷新。使用ajax请求的时候，如果没有这一步，那么第一次进入这个页面，列表不会刷新
     	if(r1.opFlag == 'true'){
     		var r2=angular.fromJson(r1.serviceResult);
-    		$scope.serviceResult=r2;
+    		$scope.dataList=r2.paperList;
     		$scope.page.total=r2.totalCount;
     		$scope.page.pages=Math.ceil($scope.page.total/$scope.page.pageSize);
     		
     		var index=($scope.page.page-1)*$scope.page.pageSize+1;
-    		angular.forEach($scope.serviceResult.paperList,function(obj){
+    		angular.forEach($scope.dataList,function(obj){
     			obj.index=index++;
     		});
-    		console.log($scope.serviceResult);
+    		console.log(r2);
     	}else{
     		console.log(r1.errorMessage);
     	}
@@ -230,4 +256,11 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 //	$scope.$watch('page', function(){//方式二
 //		$scope.getExams6();
 //	},true);
+	
+	$scope.search=function(){
+		console.log($scope.query);
+		
+	};
+
+	
 }]);
