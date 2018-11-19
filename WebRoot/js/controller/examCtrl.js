@@ -3,7 +3,7 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 	$scope.page={
 		total:0,//总记录数
 		page:1,//当前页
-		pageSize:15,//每页记录数
+		pageSize:10,//每页记录数
 		pages:0,//总页数
 	};
 //----------------参数-----------------------------------
@@ -261,6 +261,5 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 		console.log($scope.query);
 		
 	};
-
 	
 }]);

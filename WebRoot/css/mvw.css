@@ -54,9 +54,16 @@
 	min-width:400px;
 	box-sizing: border-box;
 }
-input[type="text"], input[type="number"],select{
+/*input[type="text"], input[type="number"],select{
 	width:160px;
 	height:25px;
+}*/
+.myBlock input[type="text"],input[type="number"],select{
+	width:160px;
+	height:25px;
+}
+.mySonSideBar a{
+	margin-left:25px;
 }
 /*.myQuery >div >label{
 	vertical-align:middle;

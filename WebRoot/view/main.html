@@ -27,7 +27,7 @@
 		<div class="col-sm-3 col-md-2 sidebar">
 				<!--menu.json-->
 				<ul class="nav nav-sidebar" ng-repeat="menu in memuList">
-					<li id='{{menu.id}}'><a ng-click="toMenu(menu)" >{{menu.name}}</a></li>
+					<li id='{{menu.id}}'><a ng-click="toMenu(menu)" ><span class="{{menu.icon}}"></span>{{menu.name}}</a></li>
 				</ul>
 				
 				<!--menu2.json-->
@@ -40,13 +40,19 @@
 				
 				
 				<ul class="nav nav-sidebar">
-		            <li ><a href="">考试管理<span class="sr-only">(current)</span></a></li>
-		            <li><a ui-sref=".exams">考试列表</a></li>
-		            <li><a ui-sref=".users">用户列表</a></li>
-		            <li><a >系统管理</a></li>
-		            <li><a ui-sref=".tissues">组织管理</a></li>
-		            <li><a ui-sref=".table">表格</a></li>
-		          </ul>
+		            <li ><a data-toggle="collapse" data-target="#collapseEM"><span class="glyphicon glyphicon-list-alt"></span>考试管理</a></li>
+		            <ul id="collapseEM" class="nav collapse mySonSideBar">
+			            <li><a ui-sref=".exams">考试列表</a></li>
+		            </ul>
+					            
+		            <li><a ui-sref=".users"><span class="glyphicon glyphicon-user"></span>用户列表</a></li>
+		            <li><a data-toggle="collapse" data-target="#collapseSM"><span class="glyphicon glyphicon glyphicon-wrench"></span>系统管理</a></li>
+		            <ul id="collapseSM" class="nav collapse mySonSideBar">
+			            <li><a ui-sref=".tissues">组织管理</a></li>
+			            <li><a ui-sref=".table">表格</a></li>
+		            </ul>
+		            
+		         </ul>
 		</div>
 		<div ui-view class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 myMainWapers"></div>
 	</div>	

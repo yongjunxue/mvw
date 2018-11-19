@@ -10,10 +10,10 @@ angular.module('mvw').controller('mainCtrl',['$scope','$state','$http',function(
 	
 	$scope.getMenuList=function(){
 		$http.get("data/menu.json").success(function(data) {
-			$scope.memuList = data;
+//			$scope.memuList = data;
+//			console.log($scope.memuList);
 		});
 		console.log("获取菜单");
-//		console.log($scope.memuList);
 	};
 	
 	$scope.getMenuList();

@@ -1,8 +1,8 @@
 [
-	{"id":100,"name":"考试管理","state":"","parentId":0,"selected":true},
-	{"id":200001,"name":"考试列表","state":"main.exams","parentId":100,"selected":false},
-	{"id":300,"name":"用户列表","state":"main.users","parentId":0,"selected":false},
-	{"id":400,"name":"系统管理","state":"","parentId":0,"selected":false},
-	{"id":400001,"name":"组织管理","state":"main.tissues","parentId":400,"selected":false},
-	{"id":500,"name":"表格","state":"main.table","parentId":0,"selected":false}
+	{"id":100,"name":"考试管理","state":"","parentId":0,"icon":"glyphicon glyphicon-list-alt"},
+	{"id":200001,"name":"考试列表","state":"main.exams","parentId":100,"icon":""},
+	{"id":300,"name":"用户列表","state":"main.users","parentId":0,"icon":"glyphicon glyphicon-user"},
+	{"id":400,"name":"系统管理","state":"","parentId":0,"icon":"glyphicon glyphicon glyphicon-wrench"},
+	{"id":400001,"name":"组织管理","state":"main.tissues","parentId":400,"icon":""},
+	{"id":500,"name":"表格","state":"main.table","parentId":0,"icon":""}
 ]
