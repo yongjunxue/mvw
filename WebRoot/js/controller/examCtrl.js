@@ -38,14 +38,30 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 //----------------查询-----------------------------------
 	$scope.query={
 			examName:'',
-			examTypes:[
-			           {code:"",name:"请选择"},
-			           {code:"0100",name:"内科"},
-			           {code:"0200",name:"儿科"},
-			           ],
-			createTime:"",
-//			examTypeSelected:"1"
+			examType:"0200",
+			createTime:""
 	};
+	
+	//不使用这个,实现起来比较麻烦
+//	$scope.myQuerys=[
+//			{code:"examName",name:"试卷名称",value:$scope.query.examName},
+//		    {code:"examType",name:"试卷类型",type:"select",value:$scope.query.examType,selectList:[
+//				{code:"",name:"请选择"},
+//				{code:"0100",name:"内科"},
+//				{code:"0200",name:"儿科"},                                       
+//		    ]}, 
+//		    {code:"createTime",name:"创建时间",value:$scope.query.createTime,type:"date"}
+//	];
+	
+	$scope.myQuerys2={
+ 			examName:{name:"试卷名称",value:$scope.query.examName},
+ 			examType:{name:"试卷类型",type:"select",value:$scope.query.examType,selectList:[
+ 				{code:"",name:"请选择"},
+ 				{code:"0100",name:"内科"},
+ 				{code:"0200",name:"儿科"}                                       
+ 		    ]},
+ 		   createTime:{name:"创建时间",value:$scope.query.createTime,type:"date"}
+    };
 	
 	$scope.model=param; //用$scope将param绑定之后，修改param中的值，普通刷新即可生效。否则必须强刷
 	$scope.getExams=function(){
@@ -259,7 +275,15 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 	
 	$scope.search=function(){
 		console.log($scope.query);
-		
+	};
+	
+	
+	$scope.search2=function(){
+		//必须重新赋值，无法绑定myQuerys2和query
+		$scope.query.examName=$scope.myQuerys2.examName.value;
+		$scope.query.examType=$scope.myQuerys2.examType.value;
+		$scope.query.createTime=$scope.myQuerys2.createTime.value;
+		console.log($scope.query);
 	};
 	
 }]);

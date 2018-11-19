@@ -156,3 +156,27 @@ angular.module('mvw').directive('myGrid',function(){
 		}
 	}
 });
+
+
+//这个query指令用的是json数组类型的，$scope.query和$scope.myQuerys没有绑定
+//angular.module('mvw').directive('myQuery',function(){
+//	return{
+//		restrict: 'EA',
+//		replace: true,
+//		templateUrl:"view/tmp/query.html",
+//		link:function(scope,element,attrs){
+//			
+//		}
+//	}
+//});
+angular.module('mvw').directive('myQuery2',function(){
+	return{
+		restrict: 'EA',
+		replace: true,
+		templateUrl:"view/tmp/query2.html",
+		link:function(scope,element,attrs){
+			
+		}
+	}
+});
+

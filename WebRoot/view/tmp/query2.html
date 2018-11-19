@@ -1,0 +1,28 @@
+<div class="myQuery row">
+	<div ng-repeat="(key,query) in myQuerys2">
+		<div class="col-lg-3" ng-if="query.type == null || query.type == ''">
+			<div class="myBlock">
+				<label >{{query.name}}：</label>
+				<input ng-model="query.value" type="text">
+			</div>
+		</div>
+		<div class="col-lg-3" ng-if="query.type == 'select'">
+			<div class="myBlock">
+				<label >{{query.name}}：</label>
+				<select ng-model="query.value">
+					<option ng-repeat="x in query.selectList" value="{{x.code}}">{{x.name}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-lg-3" ng-if="query.type == 'date'">
+			<div class="myBlock">
+				<label >{{query.name}}：</label>
+				<input ng-model="query.value" type="text">
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3" >
+		<button type="button" class="btn-small" ng-click="search2()">查询
+		</button>
+	</div>
+</div>
