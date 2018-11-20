@@ -1,5 +1,11 @@
 //封装了一些常用的服务
 angular.module('mvw').service('comService',function($filter){
+	
+	/**
+	 * 这个请求是没有mvwInterceptor的时候用的。有两个缺点：
+	 * 1.使用的是ajax请求，无法被前端拦截器拦截
+	 * 2.即时请求成功，却不走success方法
+	 */
 	this.mvwPost=function(url,data){
 		var r={};
 		var tempParam=$filter("json")(data);//json转为json字符串
@@ -71,4 +77,18 @@ angular.module('mvw').service('comService',function($filter){
         $scope.$apply();
         return r;
 	};
+	
+//	this.post=function(url,data){
+//		console.log("post");
+//		$http.post(url, data)
+//        .success(function (data, header, config, status) {
+//            console.log(data);
+//            return data;
+//        })
+//        .error(function (data, header, config, status) {
+//            console.log(data);
+//            return data;
+//        });
+//	};
+	
 });

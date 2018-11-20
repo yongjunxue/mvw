@@ -6,6 +6,7 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 		pageSize:10,//每页记录数
 		pages:0,//总页数
 	};
+
 //----------------参数-----------------------------------
 	var args={
 		tissueId:"4028881a57f9f1ac0157f9fb8eb80005",
@@ -18,10 +19,28 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 		token:"b95d7fd97891474395c494b7709d2eeb",
 		args:args,
 		terminalType:"A"
-	}
+	};
 	var param={
 		data:data
 	};
+	
+//----------------查询-----------------------------------
+	var query={
+			examName:'',
+			examType:"0200",
+			createTime:""
+	};
+	
+	$scope.myQuerys2={
+ 			examName:{name:"试卷名称",value:query.examName},
+ 			examType:{name:"试卷类型",type:"select",value:query.examType,selectList:[
+ 				{code:"",name:"请选择"},
+ 				{code:"0100",name:"内科"},
+ 				{code:"0200",name:"儿科"}                                       
+ 		    ]},
+ 		   createTime:{name:"创建时间",value:query.createTime,type:"date"}
+    };
+	
 //----------------表头-----------------------------------
 	$scope.theads=[
 	     {code:"index",name:"#"}, 
@@ -35,33 +54,7 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 	];
 //----------------列表-----------------------------------	
 	$scope.dataList=[];
-//----------------查询-----------------------------------
-	$scope.query={
-			examName:'',
-			examType:"0200",
-			createTime:""
-	};
-	
-	//不使用这个,实现起来比较麻烦
-//	$scope.myQuerys=[
-//			{code:"examName",name:"试卷名称",value:$scope.query.examName},
-//		    {code:"examType",name:"试卷类型",type:"select",value:$scope.query.examType,selectList:[
-//				{code:"",name:"请选择"},
-//				{code:"0100",name:"内科"},
-//				{code:"0200",name:"儿科"},                                       
-//		    ]}, 
-//		    {code:"createTime",name:"创建时间",value:$scope.query.createTime,type:"date"}
-//	];
-	
-	$scope.myQuerys2={
- 			examName:{name:"试卷名称",value:$scope.query.examName},
- 			examType:{name:"试卷类型",type:"select",value:$scope.query.examType,selectList:[
- 				{code:"",name:"请选择"},
- 				{code:"0100",name:"内科"},
- 				{code:"0200",name:"儿科"}                                       
- 		    ]},
- 		   createTime:{name:"创建时间",value:$scope.query.createTime,type:"date"}
-    };
+
 	
 	$scope.model=param; //用$scope将param绑定之后，修改param中的值，普通刷新即可生效。否则必须强刷
 	$scope.getExams=function(){
@@ -197,64 +190,66 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 		param.data.args.page=$scope.page.page;
 		param.data.args.maxNum=$scope.page.pageSize;
 		
-		var r1=comService.mvwPost(MVWHOST,param.data);
-//		var r1=comService.mvwPost3("http://192.168.8.109:4075/services2",param.data,$scope);
-//		$scope.$apply();//强制刷新。使用ajax请求的时候，如果没有这一步，那么第一次进入这个页面，列表不会刷新
-    	if(r1.opFlag == 'true'){
-    		var r2=angular.fromJson(r1.serviceResult);
-    		$scope.dataList=r2.paperList;
-    		$scope.page.total=r2.totalCount;
-    		$scope.page.pages=Math.ceil($scope.page.total/$scope.page.pageSize);
-    		
-    		var index=($scope.page.page-1)*$scope.page.pageSize+1;
-    		angular.forEach($scope.dataList,function(obj){
-    			obj.index=index++;
-    		});
-    		console.log(r2);
-    	}else{
-    		console.log(r1.errorMessage);
-    	}
-    }
-	$scope.getExams6();
-
-//------------分页部分用分页指令代替--------------------------
-/*	$scope.getFirstPage=function(){
-		$scope.page.page=1;
-		$scope.getExams6();
-	};
-	$scope.prePage=function(){
-		$scope.page.page=$scope.page.page-1;
-		if($scope.page.page<1){
-			$scope.page.page=1;
-		}
-		$scope.getExams6();
-	};
-	$scope.nextPage=function(){
-		$scope.page.page=$scope.page.page+1;
-		if($scope.page.page>$scope.page.pages){
-			$scope.page.page=$scope.page.pages;
-		}
-		$scope.getExams6();
-	};
-	$scope.getLastPage=function(){
-		$scope.page.page=Math.ceil($scope.page.total/$scope.page.pageSize);
-		$scope.getExams6();
-	};
-	$scope.goPage=function(){
-		$scope.page.page=$scope.pageNum;
-		$scope.getExams6();
-	};
-	$scope.formatNum=function(){
-		if(isNaN($scope.pageNum)){
-			$scope.pageNum="";
-			return true;
-		}
-		if($scope.pageNum>$scope.page.pages){
-			$scope.pageNum="";
-			return true;
-		}
-	};*/
-	
+//		var r1=comService.mvwPost(MVWHOST,param.data);
+		
+		var defered = $q.defer();
+		$http.post(MVWHOST,data)
+        .success(function (data) {
+            defered.resolve(data);
+        })
+        .error(function (err) {
+            defered.reject(err);
+        });
+	    var promise=defered.promise;
+		
+		promise.then(function(data){
+			var r1=data;
+			if(r1.opFlag && r1.opFlag=="true"){
+	    		var r2=angular.fromJson(r1.serviceResult);
+	    		$scope.dataList=r2.paperList;
+	    		$scope.page.total=r2.totalCount;
+	    		$scope.page.pages=Math.ceil($scope.page.total/$scope.page.pageSize);
+	    		
+	    		var index=($scope.page.page-1)*$scope.page.pageSize+1;
+	    		angular.forEach($scope.dataList,function(obj){
+	    			obj.index=index++;
+	    		});
+	    		console.log(r2);
+	    	}else{
+	    		console.log(r1.errorMessage);
+	    	}
+			
+		},function(data){
+			
+		});
+    };
+    
+    $scope.getExams7=function(){
+		param.data.args.page=$scope.page.page;
+		param.data.args.maxNum=$scope.page.pageSize;
+		
+		$http.post(MVWHOST, data)
+        .success(function (data, header, config, status) {
+            var r1=data;
+            if(r1.opFlag && r1.opFlag=="true"){
+        		var r2=angular.fromJson(r1.serviceResult);
+        		$scope.dataList=r2.paperList;
+        		$scope.page.total=r2.totalCount;
+        		$scope.page.pages=Math.ceil($scope.page.total/$scope.page.pageSize);
+        		
+        		var index=($scope.page.page-1)*$scope.page.pageSize+1;
+        		angular.forEach($scope.dataList,function(obj){
+        			obj.index=index++;
+        		});
+        		console.log(r2);
+        	}
+        })
+        .error(function (data, header, config, status) {
+            console.log(data);
+        });
+    };
+    
+    
 	$scope.edit=function (exam){
 		$scope.exam=angular.copy(exam);
 	};
@@ -266,12 +261,24 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 	$scope.close=function (){
 		console.log("取消");
 	};
-	
-	//监控$scope.page，如果有变化则执行$scope.getExams6()
-	$scope.$watch('page', $scope.getExams6,true);//方式一。true表示深度监控，监控page的每个属性
-//	$scope.$watch('page', function(){//方式二
-//		$scope.getExams6();
-//	},true);
+	$scope.deleteExam=function (exam){
+		
+		var defered = $q.defer();
+        $http.post("http://192.168.8.109:4078/poi/test",exam)
+            .success(function (data) {
+                defered.resolve(data);
+            })
+            .error(function (err) {
+                defered.reject(err);
+            });
+        var promise=defered.promise;
+		
+		promise.then(function(data){
+			console.log(data);
+		},function(data){
+			console.log(data);
+		});
+	};
 	
 	$scope.search=function(){
 		console.log($scope.query);
@@ -280,10 +287,19 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 	
 	$scope.search2=function(){
 		//必须重新赋值，无法绑定myQuerys2和query
-		$scope.query.examName=$scope.myQuerys2.examName.value;
-		$scope.query.examType=$scope.myQuerys2.examType.value;
-		$scope.query.createTime=$scope.myQuerys2.createTime.value;
-		console.log($scope.query);
+		query.examName=$scope.myQuerys2.examName.value;
+		query.examType=$scope.myQuerys2.examType.value;
+		query.createTime=$scope.myQuerys2.createTime.value;
+		console.log(query);
 	};
+	
+	//*************注意：下面这几行与代码顺序有关，最好放到controller的最后
+	//监控$scope.page，如果有变化则执行$scope.getExams6()
+//	$scope.$watch('page', $scope.getExams6,true);//方式一。true表示深度监控，监控page的每个属性。
+//	引来的一个问题是，第一次进入这个页面时，$scope.page有两个属性发生了变化，所以请求了两次。所以改为只监控$scope.page.page
+//	$scope.$watch('page', function(){//方式二
+//		$scope.getExams6();
+//	},true);
+	$scope.$watch('page.page', $scope.getExams7,true);//此时，true这个参数可有可无
 	
 }]);

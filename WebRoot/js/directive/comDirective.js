@@ -132,27 +132,14 @@ angular.module('mvw').directive('myPage2',function(){
 	}
 });
 
+//--------没有实现-------
 //<my-grid></my-grid>
 angular.module('mvw').directive('myGrid',function(){
 	return{
 		restrict: 'EA',
 		replace: true,
-		template:'<div class="table-responsive">'+
-					'<table class="table table-striped table-hover table-bordered">'+
-						'<thead>'+
-							'<tr">'+
-								'<th ng-repeat="head in theads>{{head.name}}</th>'+
-							'</tr>'+
-						'</thead>'+	
-						'<tbody>'+
-							'<tr ng-repeat="item in dataList">'+
-								'<td>{{item.timeLimit}}</td>'+
-							'</tr>'+
-						'</tbody>'+
-					'</table>'+
-				'</div>',
+		templateUrl:"view/tmp/grid.html",
 		link:function(scope,element,attrs){
-			
 		}
 	}
 });

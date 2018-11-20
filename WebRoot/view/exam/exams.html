@@ -27,49 +27,14 @@
 			<td>{{exam.illustration}}</td>
 			<td>
 				<a data-toggle="modal" data-target="#editModal" ng-click="edit(exam)">编辑</a>
-				<a ui-sref="">删除</a>
+				<a ng-click="deleteExam(exam)">删除</a>
 			</td>
 		</tr>
 	  </tbody>
 	</table>
 </div>
 
-
-
-
-
-
-<!--分页-->
-<!--
-<div class="navbar-fixed-bottom col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" role="navigation">
-	<div class="text-center">
-		共{{page.total}}条记录	{{page.pages}}页	
-		当前第{{page.page}}页
-		<div class="btn-group">
-		    <button type="button" class="btn btn-default" ng-click="getFirstPage()">&lt&lt</button>
-		    <button type="button" class="btn btn-default" ng-click="prePage()">&lt</button>
-		    <button type="button" class="btn btn-default" ng-click="nextPage()">&gt</button>
-		    <button type="button" class="btn btn-default" ng-click="getLastPage()">&gt&gt</button>
-		    <div class="input-group" style="width:100px;">
-				<input type="text" class="form-control" ng-model="pageNum" ng-change="formatNum()" >
-				<span class="input-group-btn">
-					<button class="btn btn-default" type="button" ng-click="goPage()" ng-disabled="!pageNum">
-						Go
-					</button>
-				</span>
-			</div>
-		</div>
-	</div>
-</div>
--->
-
-
-
-
-
 <my-page conf="page"></my-page>
-
-
 
 <!--模态框-->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
