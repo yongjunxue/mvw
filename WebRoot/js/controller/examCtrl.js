@@ -1,4 +1,4 @@
-angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter','$q','MVWHOST','comService',function($scope,$state,$http,$filter,$q,MVWHOST,comService){
+angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter','$q','$cookies','MVWHOST',"POIHOST",'MYTOKEN','comService',function($scope,$state,$http,$filter,$q,$cookies,MVWHOST,POIHOST,MYTOKEN,comService){
 //----------------分页-----------------------------------
 	$scope.page={
 		total:0,//总记录数
@@ -264,7 +264,7 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 	$scope.deleteExam=function (exam){
 		
 		var defered = $q.defer();
-        $http.post("http://192.168.8.109:4078/poi/test",exam)
+        $http.post(POIHOST+"/delExam",exam)
             .success(function (data) {
                 defered.resolve(data);
             })
@@ -275,6 +275,11 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 		
 		promise.then(function(data){
 			console.log(data);
+			if(data.result && data.result=="true"){
+				alert(data.msg);
+			}else{
+				alert(data.msg);
+			}
 		},function(data){
 			console.log(data);
 		});

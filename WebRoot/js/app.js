@@ -57,5 +57,6 @@ app.config(function($stateProvider,$urlRouterProvider,$httpProvider) {
 	;
 })
 .constant("MVWHOST","http://192.168.8.109:4075/services2")
+.constant("POIHOST","http://192.168.8.109:4078/poi")
 .constant("MYTOKEN","MYTOKEN")
 ;
