@@ -285,6 +285,28 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 		});
 	};
 	
+	$scope.verify=function(exam){
+		$http.post(POIHOST+"/verify/"+exam.id)
+        .success(function (data, header, config, status) {
+            var r1=data;
+            if(r1.opFlag && r1.opFlag=="true"){
+        		var r2=angular.fromJson(r1.serviceResult);
+        		$scope.dataList=r2.paperList;
+        		$scope.page.total=r2.totalCount;
+        		$scope.page.pages=Math.ceil($scope.page.total/$scope.page.pageSize);
+        		
+        		var index=($scope.page.page-1)*$scope.page.pageSize+1;
+        		angular.forEach($scope.dataList,function(obj){
+        			obj.index=index++;
+        		});
+        		console.log(r2);
+        	}
+        })
+        .error(function (data, header, config, status) {
+            console.log(data);
+        });
+    };
+	
 	$scope.search=function(){
 		console.log($scope.query);
 	};
@@ -295,7 +317,20 @@ angular.module('mvw').controller('examCtrl',['$scope','$state','$http','$filter'
 		query.examName=$scope.myQuerys2.examName.value;
 		query.examType=$scope.myQuerys2.examType.value;
 		query.createTime=$scope.myQuerys2.createTime.value;
-		console.log(query);
+		args.examName=query.examName;
+		var r1=comService.mvwPost("http://192.168.8.109:4075/services2",data);
+		if(r1.opFlag && r1.opFlag=="true"){
+    		var r2=angular.fromJson(r1.serviceResult);
+    		$scope.dataList=r2.paperList;
+    		$scope.page.total=r2.totalCount;
+    		$scope.page.pages=Math.ceil($scope.page.total/$scope.page.pageSize);
+    		
+    		var index=($scope.page.page-1)*$scope.page.pageSize+1;
+    		angular.forEach($scope.dataList,function(obj){
+    			obj.index=index++;
+    		});
+    		console.log(r2);
+    	}
 	};
 	
 	//*************注意：下面这几行与代码顺序有关，最好放到controller的最后

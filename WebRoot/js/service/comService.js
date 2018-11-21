@@ -4,7 +4,7 @@ angular.module('mvw').service('comService',function($filter){
 	/**
 	 * 这个请求是没有mvwInterceptor的时候用的。有两个缺点：
 	 * 1.使用的是ajax请求，无法被前端拦截器拦截
-	 * 2.即时请求成功，却不走success方法
+	 * 2.即时请求成功，却不走success方法。将dataType由json更改为text
 	 */
 	this.mvwPost=function(url,data){
 		var r={};
@@ -15,16 +15,17 @@ angular.module('mvw').service('comService',function($filter){
             data: tempParam,
             type: "Post",
             async: false,//注意**************
-            dataType: "json",
-            cache: false,//上传文件无需缓存
-            processData: false,//用于对data参数进行序列化处理 这里必须false
+            dataType: "text",
+//            cache: false,//上传文件无需缓存
+//            processData: false,//用于对data参数进行序列化处理 这里必须false
             contentType: "application/x-www-form-urlencoded", //必须
             success:function (result) {
+            	var resultStr=decodeURIComponent(result);
+            	r=angular.fromJson(resultStr);
             },
             error:function(result){
-            	//不知道为什么,不走success这个方法，却走error？？
-            	var resultStr=decodeURIComponent(result.responseText);
-            	r=angular.fromJson(resultStr);
+            	
+            	
             }
         });
         return r;
